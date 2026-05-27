@@ -22,3 +22,5 @@ __pycache__/
 # build artifacts
 dist/
 build/
+ml/models/*.pkl
+ml/data/raw/*.csv
