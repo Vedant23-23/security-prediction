@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Diagrams - Road Accident Severity Prediction</title>
+    <!-- We load Mermaid.js which automatically spins up the visual diagrams -->
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; max-width: 900px; margin: auto; color: #222; }
+        h1 { color: #1a4f8f; text-align: center; margin-bottom: 10px; }
+        h2 { color: #d32f2f; border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 40px; }
+        p.subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+        .diagram-container { border: 1px solid #ccc; padding: 25px; margin-bottom: 20px; border-radius: 8px; background: #fafafa; overflow-x: auto; text-align: center;}
+    </style>
+</head>
+<body>
+    <h1>Road Accident Severity Prediction</h1>
+    <p class="subtitle">Complete Visual Project Diagrams</p>
+    
+    <h2>1. User Flow Diagram</h2>
+    <p>Describes the user's journey through the application, from accessing the home page to obtaining predictions.</p>
+    <div class="diagram-container">
+        <div class="mermaid">
+        graph TD
+            A[User Land on Home Page] --> B[Explore App Features/Cards]
+            B --> C{Action?}
+            C -->|Try Prediction| D[Navigate to Predict Page]
+            C -->|View Analytics| E[Navigate to Dashboard Page]
+            C -->|Live Risk Map| F[Navigate to Live Map]
+            
+            D --> G[Enter Temporal & Site Data]
+            G --> H[Enter Environmental Factors]
+            H --> I[Enter Traffic & Vehicle Dynamics]
+            I --> J[Enter Risk & Casualty Factors]
+            J --> K[Click 'Calculate Severity Index']
+            
+            K --> L{ML Model API}
+            L --> M[Return Prediction: Minor / Serious / Fatal]
+            M --> N[Display Result Badge, Score & Suggestion]
+        </div>
+    </div>
+
+    <h2>2. Entity Relationship (ER) Diagram</h2>
+    <p>Shows the database structure using Chen's notation, exactly like traditional diagrams (Entities as rectangles, Attributes as ovals, Relationships as diamonds).</p>
+    <div class="diagram-container">
+        <div class="mermaid">
+        graph TD
+            %% Entities
+            U[User]
+            A[Accident Prediction]
+            
+            %% Relationship
+            R{Logs}
+            
+            %% User Attributes
+            U_id([_id])
+            U_user([username])
+            U_email([email])
+            U_pass([password])
+            
+            %% User Connections
+            U --- U_id
+            U --- U_user
+            U --- U_email
+            U --- U_pass
+            
+            %% Relationship Connections
+            U ---|1| R
+            R ---|M| A
+            
+            %% Accident Attributes
+            A_id([_id])
+            A_uid([user_id])
+            A_hr([hour])
+            A_day([day_of_week])
+            A_rd([road_type])
+            A_wth([weather])
+            A_lgt([lighting_condition])
+            A_traf([traffic_density])
+            A_veh([vehicle_type])
+            A_sev([predicted_severity])
+            A_sug([safety_suggestion])
+            A_ts([timestamp])
+
+            %% Accident Connections
+            A --- A_id
+            A --- A_uid
+            A --- A_hr
+            A --- A_day
+            A --- A_rd
+            A --- A_wth
+            A --- A_lgt
+            A --- A_traf
+            A --- A_veh
+            A --- A_sev
+            A --- A_sug
+            A --- A_ts
+        </div>
+    </div>
+
+    <h2>3. Data Flow Diagram (DFD)</h2>
+    <p>Illustrates how data moves from the user interface through the backend, to the ML service and database.</p>
+    <div class="diagram-container">
+        <div class="mermaid">
+        graph TD
+            User([User / Authority]) -->|Enters Road/Traffic Details| UI[React.js Frontend]
+            UI -->|JSON Request| Backend[Node.js / Express API]
+            Backend -->|Save Data| DB[(MongoDB)]
+            Backend -->|Send Features| ML[FastAPI ML Service]
+            ML -->|Ensemble Model Processing| Model((Predictive Engine))
+            Model -->|Return Severity & Score| ML
+            ML -->|JSON Response| Backend
+            Backend -->|Prediction Results| UI
+            UI -->|Display Dashboard / Result| User
+        </div>
+    </div>
+
+    <h2>4. State Diagram</h2>
+    <p>Represents the various states a prediction request goes through during processing.</p>
+    <div class="diagram-container">
+        <div class="mermaid">
+        stateDiagram-v2
+            [*] --> Idle
+            Idle --> FormInput : User starts entering data
+            FormInput --> Validation : User clicks Predict
+            Validation --> Error : Validation Failed
+            Error --> FormInput
+            Validation --> Processing : Validation Passed
+            Processing --> ML_Prediction : Sending via API
+            ML_Prediction --> Prediction_Complete : ML returns result
+            Prediction_Complete --> Display_Result
+            Display_Result --> Saved_in_DB
+            Saved_in_DB --> [*]
+        </div>
+    </div>
+
+    <h2>5. Activity Diagram</h2>
+    <p>Details the step-by-step conditional flow of the system's prediction feature.</p>
+    <div class="diagram-container">
+        <div class="mermaid">
+        flowchart TD
+            Start((Start)) --> A[Fill Prediction Form]
+            A --> B{Is Data Valid?}
+            B -- No --> C[Show Error Message]
+            C --> A
+            B -- Yes --> D[Submit API Request to Backend]
+            D --> E[Backend Calls ML Microservice]
+            E --> F[Feature Scaling & Preprocessing]
+            F --> G[Pass to Ensemble Model]
+            G --> H[Calculate Probabilities]
+            H --> I[Generate Final Severity Prediction]
+            I --> J[Backend Stores Prediction in MongoDB]
+            J --> K[Return Response to Frontend]
+            K --> L[Update UI with Alert / Suggestion]
+            L --> End((End))
+        </div>
+    </div>
+
+    <h2>6. Sequence Diagram</h2>
+    <p>Visualizes the time-ordered sequence of interactions between the components.</p>
+    <div class="diagram-container">
+        <div class="mermaid">
+        sequenceDiagram
+            actor User
+            participant Frontend as React Frontend
+            participant Backend as Node.js Express API
+            participant DB as MongoDB
+            participant ML as FastAPI Service
+            
+            User->>Frontend: Enter accident parameters
+            User->>Frontend: Click "Calculate Severity"
+            Frontend->>Backend: POST /api/predict (Data)
+            Backend->>ML: POST /predict (Features)
+            ML->>ML: Process with Random Forest + XGBoost + NN
+            ML-->>Backend: JSON Prediction Result
+            Backend->>DB: Save prediction history
+            DB-->>Backend: Acknowledge
+            Backend-->>Frontend: Prediction & Safety Suggestions
+            Frontend-->>User: Display Severity Badge & Analytics
+        </div>
+    </div>
+</body>
+</html>

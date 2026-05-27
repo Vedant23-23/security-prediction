@@ -1,0 +1,36 @@
+{
+    "weather": [
+        "fog",
+        "clear",
+        "rain"
+    ],
+    "road_type": [
+        "highway",
+        "urban",
+        "rural"
+    ],
+    "visibility": [
+        "low",
+        "high",
+        "medium"
+    ],
+    "traffic_density": [
+        "high",
+        "low",
+        "medium"
+    ],
+    "day_of_week": [
+        "Sunday",
+        "Wednesday",
+        "Thursday",
+        "Monday",
+        "Friday",
+        "Tuesday",
+        "Saturday"
+    ],
+    "accident_severity": [
+        "fatal",
+        "major",
+        "minor"
+    ]
+}
