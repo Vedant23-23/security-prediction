@@ -4,7 +4,6 @@ npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-lock.yaml
 package-lock.json
 # Python
 __pycache__/
@@ -15,11 +14,11 @@ __pycache__/
 *.log
 # macOS
 .DS_Store
-# IDE settings
+# IDE/workspace
 .vscode/
 .idea/
 # local database
 .mongodb/
-# FastAPI reload cache
-*.db
-
+# build artifacts
+dist/
+build/
